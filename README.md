@@ -2,6 +2,8 @@
 
 Conway's Game of Life in Clojure using [Humble UI](https://github.com/HumbleUI/HumbleUI) for graphics.
 
+![game-of-life-osc](https://user-images.githubusercontent.com/16859754/200668959-392d049a-1a67-4416-8e58-65ba7d336568.gif)
+
 Based on:
 
 - [Game of Life Kata in Clojure by Michael Whatcott](https://www.youtube.com/watch?v=15WJqtGbaH8)
