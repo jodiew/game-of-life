@@ -1,4 +1,11 @@
+# Clojure
 .calva/
 .clj-kondo/
 .cpcache/
 .lsp/
+
+# Portal
+.portal/
+
+# Humble UI
+*.log

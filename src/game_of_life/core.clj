@@ -27,7 +27,7 @@
     [0 5]       [2 5]
           [1 6] [2 6]})
 
-(def world (ref big-osc-start))
+(def world (ref osc-start))
 
 (defn neighbours-for [[x y]]
   (for [Y (range (dec y) (+ 2 y))
