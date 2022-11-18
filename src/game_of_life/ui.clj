@@ -1,11 +1,13 @@
-(ns game-of-life.ui.can-click 
-  (:require [io.github.humbleui.ui :as ui]
+(ns game-of-life.ui 
+  (:require [game-of-life.core :as gol]
+
+            [io.github.humbleui.ui :as ui]
             [io.github.humbleui.window :as window]
             [io.github.humbleui.debug :as debug]
             [io.github.humbleui.canvas :as canvas]
             [io.github.humbleui.core :as core]
             [io.github.humbleui.paint :as paint]
-            
+
             [portal.api :as p])
   (:import [io.github.humbleui.types IPoint]
            [io.github.humbleui.skija Canvas]))
@@ -17,7 +19,7 @@
 ;; state
 (def *window (atom nil))
 (def *app (atom nil))
-(def world (ref #{[3 4] [4 4] [5 4]}))
+;; (def world (ref #{[3 4] [4 4] [5 4]}))
 
 ;; app
 (def dim 9)
@@ -31,15 +33,15 @@
            height (.getHeight win-rect)
            size (min width height)
            square-size (/ size dim)
-           live-cells @world
+           live-cells @gol/world
            x (int (quot (:x e) square-size))
            y (int (quot (:y e) square-size))]
        (tap> {:my-x x
               :my-y y
               :world live-cells})
        (if (live-cells [x y])
-         (alter world disj [x y])
-         (alter world conj [x y]))
+         (alter gol/world disj [x y])
+         (alter gol/world conj [x y]))
     ;;   (tap> e)
        ))
     true))
@@ -50,7 +52,7 @@
         size (min width height)
         square-size (/ size dim)
         gap-size (/ square-size 50)
-        live-cells @world]
+        live-cells @gol/world]
     (tap> {:scale scale
            :width width
            :height height
@@ -70,7 +72,8 @@
                           (if (live-cells [x y])
                             (paint/fill 0xFF79bf77)
                             (paint/fill 0xFF787878))))
-      )))
+      )
+    (window/request-frame (:window ctx))))
 
 (def app-ui
   (ui/center
@@ -101,8 +104,12 @@
              :y :top}
             *app)))
   (reset! debug/*enabled? true)
+  (send-off gol/evolver gol/evolution)
   (redraw))
 
 (comment
+  ;; start app
   (-main)
+  ;; stop evolver
+  (swap! gol/running not)
   )

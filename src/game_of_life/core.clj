@@ -1,9 +1,9 @@
 (ns game-of-life.core)
 
-(def running true)
+(def running (atom true))
 (def evolve-sleep-ms 1000)
 (def osc-start
-  #{[0 0] [1 0] [2 0]})
+  #{[3 4] [4 4] [5 4]})
 (def big-osc-start
   #{#_[ ] #_[ ] #_[ ] #_[ ] #_[ ] #_[ ] #_[ ] #_[ ] #_[ ]
     #_[ ] #_[ ] #_[ ] [3 1] [4 1] [5 1] #_[ ] #_[ ] #_[ ]
@@ -62,7 +62,7 @@
 (def evolver (agent nil))
 
 (defn evolution [_]
-  (when running
+  (when @running
     (send-off *agent* #'evolution))
   (evolve)
   (. Thread (sleep evolve-sleep-ms))

@@ -16,10 +16,10 @@ vscode & Calva:
 
 1. **Start a Project REPL and Connect (aka Jack-In)**
 1. Select **deps.edn** as project type
-1. Run **Evaluate Current File** for core.clj and humbleui.clj
+1. Run **Evaluate Current File** for core.clj and ui.clj
 
 terminal:
 
 ```bash
-clj -M -m game-of-life.ui.humbleui --interactive
+clj -M -m game-of-life.ui
 ```
